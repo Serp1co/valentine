@@ -53,10 +53,12 @@ class MusicManager {
             volume: document.querySelector("#btn-volume"),
             next: document.querySelector("#btn-music-next"),
             prev: document.querySelector("#btn-music-prev"),
+            play: document.querySelector("#btn-music-play"),
         };
         this.controls.volume.onclick = this.switchVolume.bind(this);
         this.controls.prev.onclick = this.previousAudio.bind(this);
         this.controls.next.onclick = this.nextAudio.bind(this);
+        this.controls.play.onclick = this.startAudio.bind(this);
         this.title = document.getElementById("audiotitle");
         this.loader = document.getElementById("loader");
     }
@@ -113,6 +115,10 @@ class MusicManager {
                 this.controls.next.disabled = false;
                 this.controls.prev.disabled = false;
             })
+    }
+
+    async startAudio() {
+        this.audio.play();
     }
 
     async playAudio(data) {
