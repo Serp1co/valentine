@@ -25,7 +25,7 @@ class Menu {
     }
 
     setupAshleyBtn(background, glitch, musicManager) {
-        this.ashleyBtn = document.querySelector("#aslheybtn");
+        this.ashleyBtn = document.querySelector("#starter-btn");
         this.menunav = document.querySelector("#menu-nav");
         this.ashleyBtn.addEventListener("click", () => {
             if (this.menunav.classList.contains("hidden"))
