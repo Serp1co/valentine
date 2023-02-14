@@ -1,0 +1,50 @@
+.menu-nav {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    left: 0;
+    top: 0;
+    z-index: 98;
+    transition: all 0.225s ease-out;
+}
+
+.menu.open {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.menu-item {
+    border: #636363 solid 1px;
+    background-color: #121212;
+    padding: 10px;
+    margin: 10px;
+}
+.menu-item-btn {
+    background-color: #121212;
+    border: #636363 1px solid;
+    padding: 10px 5px 10px 5px;
+    color: #636363;
+    width: 100%;
+    transition: all 0.175s;
+    cursor: pointer;
+    margin: 5px 5px 5px 0;
+}
+
+.menu-item-btn:hover {
+    border: 1px solid ghostwhite;
+    color: ghostwhite;
+}
+
+#startext {
+    font-family: "Consolas", sans-serif;
+    font-size: 1.2em;
+}

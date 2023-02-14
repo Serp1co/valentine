@@ -1,0 +1,138 @@
+#starter {
+    height: 600px;
+    transition: all 0.5s ease-in;
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 2;
+}
+
+.glitch {
+    font-size: 2rem;
+    position: absolute;
+    text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff,
+    0.025em 0.04em 0 #fffc00;
+    animation: glitch 725ms infinite;
+}
+
+.glitch span {
+    position: absolute;
+}
+
+.glitch span:first-child {
+    animation: glitch 500ms infinite;
+    clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+    transform: translate(-0.04em, -0.03em);
+    opacity: 0.75;
+}
+
+.glitch span:last-child {
+    animation: glitch 375ms infinite;
+    clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+    transform: translate(0.04em, 0.03em);
+    opacity: 0.75;
+}
+
+.glitch_fast {
+    animation: glitch 375ms infinite;
+}
+
+.tip {
+    animation: glitch 375ms infinite;
+}
+
+.tip:hover {
+    color: darkred;
+    background-color: whitesmoke;
+}
+
+@keyframes glitch {
+    0% {
+        text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff,
+        0.025em 0.04em 0 #fffc00;
+    }
+
+    15% {
+        text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff,
+        0.025em 0.04em 0 #fffc00;
+    }
+
+    16% {
+        text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.035em 0 #fc00ff,
+        -0.05em -0.05em 0 #fffc00;
+    }
+
+    49% {
+        text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.035em 0 #fc00ff,
+        -0.05em -0.05em 0 #fffc00;
+    }
+
+    50% {
+        text-shadow: 0.05em 0.035em 0 #00fffc, 0.03em 0 0 #fc00ff,
+        0 -0.04em 0 #fffc00;
+    }
+
+    99% {
+        text-shadow: 0.05em 0.035em 0 #00fffc, 0.03em 0 0 #fc00ff,
+        0 -0.04em 0 #fffc00;
+    }
+
+    100% {
+        text-shadow: -0.05em 0 0 #00fffc, -0.025em -0.04em 0 #fc00ff,
+        -0.04em -0.025em 0 #fffc00;
+    }
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    flex-direction: column;
+}
+
+.col {
+    display: flex;
+    flex-direction: row;
+}
+
+div .monitor {
+    height: inherit;
+    flex-direction: column;
+    padding: 0 0 0 0;
+}
+
+.server_footer {
+    text-align: center;
+    align-items: center;
+}
+
+.upper-part {
+    background: black;
+    display: flex;
+    flex-direction: column;
+}
+
+.my-content {
+    height: inherit;
+    width: 100%;
+    transition: width .35s;
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    font-weight: bold;
+    font-family: "Consolas", sans-serif;
+    font-size: 12px;
+    padding: 0 !important;
+    overflow: hidden;
+}
+
+.bottom-part {
+    border-top: indianred 1px solid;
+    position: relative;
+}
+
+#bottomimg {
+    opacity: 0.9;
+}

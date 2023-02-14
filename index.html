@@ -1,0 +1,180 @@
+<style>
+    @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+    @import url('https://fonts.googleapis.com/css2?family=Quantico&display=swap');
+
+    body {
+        background: black;
+    }
+
+    #app {
+        height: 600px;
+        width: 564px;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid dimgray !important;
+        color: whitesmoke;
+        background: black;
+    }
+
+    .hidden {
+        opacity: 0 !important;
+        z-index: -1 !important;
+    }
+
+</style>
+<script type="text/javascript">
+    class _Resource {
+        //static resource_target = "http://localhost/static";
+        static resource_target = "https://raw.githubusercontent.com/Serp1co/ct-custom-page/feature/multisection/static/";
+
+        url;
+        type;
+        _elem;
+
+        constructor(url, type) {
+            this.url = _Resource.resource_target + url;
+            this.type = type;
+        }
+
+        async initResource() {
+            this._elem = await _ResourceFetcher._fetch_resource(this);
+            return this._elem;
+        }
+
+        getElem() {
+            return this._elem.cloneNode(true);
+        }
+    }
+
+    class _ResourceFetcher {
+        static async _fetch_resource(resource) {
+            return await fetch(resource.url, {
+                method: "GET", // *GET, POST, PUT, DELETE, etc.
+                mode: "cors", // no-cors, *cors, same-origin
+                cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+            })
+                .then((response) => _ResourceFetcher._process_response(response))
+                .then((data) => {
+                    let html = document.createElement(resource.type);
+                    html.innerHTML = data;
+                    return html;
+                })
+        }
+
+        static _process_response(response) {
+            if (response.ok) return response.text();
+            else
+                throw {
+                    status_code: response.status,
+                    status_description: response.statusText,
+                };
+        };
+    }
+
+    class Component {
+        static COMPONENTS = {};
+
+        name;
+        html;
+        _style;
+        _script;
+
+        constructor(name, path) {
+            this.name = name;
+            this._style = new _Resource(path + "/" + name + "/" + name + ".css", "style");
+            this._script = new _Resource(path + "/" + name + "/" + name + ".js", "script");
+            this.html = new _Resource(path + "/" + name + "/" + name + ".html", "div");
+        }
+
+        async initComponent() {
+            await this._fetch_elements()
+                .then((_) => {
+                    document.head.appendChild(this._style.getElem());
+                    document.body.appendChild(this._script.getElem());
+                })
+                .then((_) => this._propagate_init_event())
+        }
+
+        async _fetch_elements() {
+            await Promise.all([
+                this._style.initResource(),
+                this._script.initResource(),
+                this.html.initResource(),
+            ]);
+        }
+
+        _propagate_init_event() {
+            document.dispatchEvent(new Event("component-" + this.name + "-init-done"));
+        }
+
+        static renderComponent(component, parent, id, classlist = []) {
+            let item = component.html.getElem();
+            item.id = id;
+            item.classList.add(...classlist);
+            Component.COMPONENTS[id] = parent.appendChild(item);
+        }
+
+        static removeComponent(id) {
+            Component.COMPONENTS[id].remove();
+            Component.COMPONENTS[id] = undefined;
+        }
+    }
+
+    class App {
+        static COMPONENTS_PATH = "/components";
+        static EFFECTS_PATH = "/effects";
+
+        constructor() {
+            this.starter = new Component("starter", App.COMPONENTS_PATH);
+            this.audioManager = new Component("audiomanager", App.COMPONENTS_PATH);
+            this.musicAnalyzer = new Component("musicAnalyzer", App.COMPONENTS_PATH);
+            this.menu = new Component("menu", App.COMPONENTS_PATH);
+            this.glitchImage = new _Resource(App.EFFECTS_PATH + "/" + "glitchimage" + ".js", "script");
+            this.loader = new _Resource(App.EFFECTS_PATH + "/" + "loader" + ".css", "style");
+        }
+
+        async initApp() {
+            await Promise.all([
+                this.starter.initComponent(),
+                this.audioManager.initComponent(),
+                this.musicAnalyzer.initComponent(),
+                this.menu.initComponent(),
+                this.glitchImage.initResource()
+                    .then(el => document.body.appendChild(el)),
+                this.crt.initResource()
+                    .then(el => document.head.appendChild(el)),
+                this.loader.initResource()
+                    .then(el => document.head.appendChild(el)),
+            ]);
+        }
+    }
+
+    window.onload = async function () {
+        let template = document.querySelector("#app");
+        let app = new App();
+        app.initApp()
+            .then(async () => {
+                Component.renderComponent(app.starter, template, "starter", ["hidden"]);
+                Component.renderComponent(app.audioManager, template, "audiomanager");
+                const sectionBottom = document.querySelector(".bottom-part");
+                Component.renderComponent(app.musicAnalyzer, sectionBottom, "musicAnalyer");
+                Component.renderComponent(app.menu, template, "menu");
+                let audiomanager = await AudioManager.getInstance();
+                const glitch = new GlitchedImage(document.querySelector("#bottomimg"), 120);
+                const musicAnalyzer = new MusicAnalyzer(document.querySelector("#backgroundCanvas"), 564, 336, audiomanager.musicManager);
+                const menu = new Menu(musicAnalyzer, glitch, audiomanager.effectManager, audiomanager.musicManager);
+            })
+            .catch((exception) => console.error(exception))
+            .finally(() => {
+                document.querySelector("#startext").innerHTML = "Ciao Giorgia," + "<br>Non sono bravissimo in queste cose.<br>" + "<br>Ma spero che apprezzerai<br>";
+            });
+    }
+</script>
+<div class="app" id="app">
+    <div id="loader" class="hidden">
+        <div id="spinner"></div>
+        <h2 id="loading-text">Loading...</h2>
+    </div>
+</div>
