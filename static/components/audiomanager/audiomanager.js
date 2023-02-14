@@ -66,29 +66,13 @@ class MusicManager {
         this.volume = 1;
         this.baseURL = "https://audio.jukehost.co.uk/";
         this.fileNames = [
-            "d9QaJCgAoBqfXZAUdak8YLR50z2ksEzp",
-            "4EN6yYN0u4hM5lguBpJFgPBpF5b4GSeL",
-            "5s7c2aghBwch2h0FDG3ASvjUlBXGZME4",
-            "DmiVCHVOiJ7HF63YCD1LZW9xE3nxQuze",
-            "hH85da3Buz0pgpTfeYmZkZh3okG3lDth",
-            "QskM0E8A8ewtTOok16LgvGEPkjduXUbL",
-            "UHqBe9VQ4hFy3BFAmcaDGJddGH1bCkfl",
-            "udJBq0eQdAiwFFJFyWdOl3D1NpkZ3vY2",
-            "1THpVPzebCYYlxa5AVxysOLiUIZ91YdO",
-            "2PsyieSY3shMS5bc23qi6S0JydrIeNxY"
+            "8hFOrKf1BYhpBqBMb9OhqJcoXI2HoOJC",
+            "fqLzHHcHM4n2EFijfRiUu2iAKVumkPFy",
         ];
 
         this.songTitles = [
-            "#67, The Night Skinny - On Tour",
-            "Pop Smoke - Tell the Vision",
-            "Noyz Narcos - Enemy",
-            "Pop Smoke - Invincible",
-            "Dimzy - Bet you do",
-            "Ketama126 - Animale",
-            "Run the Jewels - Crown",
-            "SR - Welcome to Brixton",
-            "Stormzy - Audacity",
-            "Idris Elba - Daily Duppy"
+            "Rosa Walton & Hallie Coggins - I Really Want to Stay at Your House",
+            "Madame - Sentimi",
         ];
 
         this.audio = document.getElementById("audio");
