@@ -110,7 +110,7 @@ div .monitor {
 }
 
 .upper-part {
-    background: black;
+    background: whitesmoke;
     display: flex;
     flex-direction: column;
 }
